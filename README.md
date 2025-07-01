@@ -1,3 +1,17 @@
+DAY_WISE Progress:
+
+ Day 1: Setup, Authentication Modal and Doctors List
+- Initialized project with Next.js and Tailwind CSS
+- Added authentication modal using Headless UI
+- Created and styled Login and Register forms
+- Created the doctors list page with searching and filtering based on speciality
+
+
+
+
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

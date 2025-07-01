@@ -93,7 +93,7 @@ const RegisterForm = ({ baseUrl, onClose }) => {
           type="text"
           className={`mt-1 block w-full px-3 py-2 border ${
             errors.firstname ? "border-red-500" : "border-gray-300"
-          } rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500`}
+          } rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500`}
           value={firstname}
           onChange={(e) => setFirstname(e.target.value)}
           onBlur={() => validateField("firstname", firstname)}
@@ -108,7 +108,7 @@ const RegisterForm = ({ baseUrl, onClose }) => {
           type="text"
           className={`mt-1 block w-full px-3 py-2 border ${
             errors.lastname ? "border-red-500" : "border-gray-300"
-          } rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500`}
+          } rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500`}
           value={lastname}
           onChange={(e) => setLastname(e.target.value)}
           onBlur={() => validateField("lastname", lastname)}
@@ -123,7 +123,7 @@ const RegisterForm = ({ baseUrl, onClose }) => {
           type="email"
           className={`mt-1 block w-full px-3 py-2 border ${
             errors.email ? "border-red-500" : "border-gray-300"
-          } rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500`}
+          } rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500`}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           onBlur={() => validateField("email", email)}
@@ -138,7 +138,7 @@ const RegisterForm = ({ baseUrl, onClose }) => {
           type="password"
           className={`mt-1 block w-full px-3 py-2 border ${
             errors.registerPassword ? "border-red-500" : "border-gray-300"
-          } rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500`}
+          } rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500`}
           value={registerPassword}
           onChange={(e) => setRegisterPassword(e.target.value)}
           onBlur={() => validateField("registerPassword", registerPassword)}
@@ -155,7 +155,7 @@ const RegisterForm = ({ baseUrl, onClose }) => {
           type="text"
           className={`mt-1 block w-full px-3 py-2 border ${
             errors.contact ? "border-red-500" : "border-gray-300"
-          } rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500`}
+          } rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500`}
           value={contact}
           onChange={(e) => setContact(e.target.value)}
           onBlur={() => validateField("contact", contact)}
@@ -166,7 +166,7 @@ const RegisterForm = ({ baseUrl, onClose }) => {
       {/* Submit */}
       <button
         onClick={registerClickHandler}
-        className="mt-4 w-full bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md transition"
+        className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition"
       >
         Register
       </button>

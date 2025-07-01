@@ -5,7 +5,6 @@ import DoctorList from "./DoctorList";
 export default function Home() {
   return (
     <div>
-    <Header/>
     <DoctorList/>
     </div>
 

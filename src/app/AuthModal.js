@@ -20,7 +20,7 @@ const AuthModal = ({ isOpen, onRequestClose, baseUrl }) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-white opacity-70" />
+          <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -37,7 +37,7 @@ const AuthModal = ({ isOpen, onRequestClose, baseUrl }) => {
               <Dialog.Panel className="w-full max-w-sm transform overflow-hidden rounded-xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-bold leading-6 text-white bg-purple-600 p-3 rounded-t-xl text-center"
+                  className="text-lg font-bold leading-6 text-white bg-blue-600 p-3 rounded-t-xl text-center"
                 >
                   Authentication
                 </Dialog.Title>
@@ -48,7 +48,7 @@ const AuthModal = ({ isOpen, onRequestClose, baseUrl }) => {
                     onClick={() => setTab("login")}
                     className={`px-4 py-2 text-sm font-medium rounded-l-md ${
                       tab === "login"
-                        ? "bg-purple-600 text-white"
+                        ? "bg-blue-600 text-white"
                         : "bg-gray-200 text-gray-700"
                     }`}
                   >
@@ -58,7 +58,7 @@ const AuthModal = ({ isOpen, onRequestClose, baseUrl }) => {
                     onClick={() => setTab("register")}
                     className={`px-4 py-2 text-sm font-medium rounded-r-md ${
                       tab === "register"
-                        ? "bg-purple-600 text-white"
+                        ? "bg-blue-600 text-white"
                         : "bg-gray-200 text-gray-700"
                     }`}
                   >
