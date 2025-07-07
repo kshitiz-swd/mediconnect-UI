@@ -60,7 +60,7 @@ const loginClickHandler = async () => {
 
 
   return (
-    <div className="space-y-4 mt-2">
+    <div className="space-y-4 mt-2 text-black">
       <div>
         <label className="block text-sm font-medium text-gray-700">Email</label>
         <input

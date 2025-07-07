@@ -8,6 +8,7 @@ import {
 } from '@headlessui/react';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import { useSelector } from 'react-redux';
 
 const BookAppointment = ({ isOpen, onRequestClose, selectedDoctor, baseUrl }) => {
   const [medicalHistory, setMedicalHistory] = useState('');
@@ -17,6 +18,8 @@ const BookAppointment = ({ isOpen, onRequestClose, selectedDoctor, baseUrl }) =>
   const [timeSlot, setTimeSlot] = useState('');
 
   const cancelButtonRef = useRef(null);
+
+  const user = useSelector((state) => state.user)
 
   useEffect(() => {
     if (!isOpen) {
@@ -63,7 +66,7 @@ const BookAppointment = ({ isOpen, onRequestClose, selectedDoctor, baseUrl }) =>
 
     try {
       const fullDateTime = combineDateAndTime(selectedDate, timeSlot);
-      await axios.post(
+      const response = await axios.post(
         `http://localhost:7000/api/appointment`,
         {
           doctorId: selectedDoctor._id,
@@ -71,13 +74,14 @@ const BookAppointment = ({ isOpen, onRequestClose, selectedDoctor, baseUrl }) =>
           symptoms,
           appointmentDate: fullDateTime,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem('access-token')}`,
-            'Content-Type': 'application/json',
-          },
-        }
+      {
+        withCredentials: true, 
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
       );
+      console.log(response)
 
       alert(' Appointment booked successfully!');
       onRequestClose();
@@ -87,21 +91,18 @@ const BookAppointment = ({ isOpen, onRequestClose, selectedDoctor, baseUrl }) =>
   };
 
 
-  // Show nothing if doctor not selected
   if (!selectedDoctor) return null;
 
   return (
-    <Transition show={isOpen} as={Fragment}>
+    <Transition show={isOpen} as={Fragment} >
       <Dialog
         initialFocus={cancelButtonRef}
         onClose={onRequestClose}
         className="relative z-50"
       >
-        {/* Backdrop */}
         <div className="fixed inset-0 bg-black/40" aria-hidden="true" />
 
-        {/* Modal Panel */}
-        <div className="fixed inset-0 flex justify-center items-center p-4">
+        <div className="fixed inset-0 flex justify-center items-center p-4 text-black">
           <DialogPanel className="w-full max-w-xl rounded-lg bg-white p-6 shadow-xl space-y-6">
             <h2 className="text-xl font-semibold text-blue-600">
               Book an Appointment
@@ -170,7 +171,7 @@ const BookAppointment = ({ isOpen, onRequestClose, selectedDoctor, baseUrl }) =>
 
             <button
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-md transition"
-              onClick={bookAppointment}
+              onClick={()=>bookAppointment()}
               disabled={!selectedDate || !timeSlot}
               ref={cancelButtonRef}
             >

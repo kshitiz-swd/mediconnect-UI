@@ -85,8 +85,7 @@ const RegisterForm = ({ baseUrl, onClose }) => {
   };
 
   return (
-    <div className="space-y-4 mt-2">
-      {/* First Name */}
+    <div className="space-y-4 mt-2 text-black">
       <div>
         <label className="block text-sm font-medium text-gray-700">First Name</label>
         <input

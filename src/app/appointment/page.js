@@ -12,7 +12,7 @@ const Appointment = ({ baseUrl }) => {
   const [appointments, setAppointments] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-
+console.log(appointments)
   const openModalHandler = (appointment) => {
     setSelectedAppointment(appointment);
     setModalIsOpen(true);
@@ -30,7 +30,7 @@ useEffect(() => {
       });
       console.log(response)
 
-      setAppointments(response.data.appointments || response.data);
+      setAppointments(response.data.allAppointments || response.data);
       setIsLoggedIn(true);
     } catch (error) {
       console.error("Error fetching appointments:", error);
@@ -57,7 +57,7 @@ useEffect(() => {
             className="bg-white shadow-md rounded-xl p-4 border border-gray-200 text-black"
           >
             <p className="text-lg font-semibold mb-2 text-blue-700">
-              Dr. {appointment.doctorId.name}
+               {appointment.doctorId.name}
             </p>
             <p className="mb-1">Date: {appointment.appointmentDate.split('T')[0]}</p>
             <p className="mb-1">Symptoms: {appointment.symptoms || 'N/A'}</p>

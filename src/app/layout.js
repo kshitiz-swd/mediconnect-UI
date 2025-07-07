@@ -1,7 +1,7 @@
 // app/layout.js
 import "./globals.css";
-import ClientHeader from "../components/ClientHeader";
-import Providers from "../utils/Providers"; 
+import Providers from "../utils/Providers";
+import ClientLayout from "../components/ClientLayout"; // ✅ Import the new wrapper
 
 export const metadata = {
   title: "MediConnect",
@@ -13,8 +13,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <Providers>
-          <ClientHeader baseUrl="http://localhost:7000/api" />
-          {children}
+          <ClientLayout>
+            {children}
+          </ClientLayout>
         </Providers>
       </body>
     </html>
