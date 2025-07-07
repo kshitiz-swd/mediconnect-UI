@@ -3,14 +3,20 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice"; 
 
-const LoginForm = ({ baseUrl, onClose }) => {
+
+const LoginForm = ({ baseUrl, onClose, onLoginSuccess }) => {
   const router = useRouter();
+
+  const dispatch = useDispatch();
 
   const [emailId, setEmailId] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
+   
 
   const validate = () => {
     const newErrors = {};
@@ -20,42 +26,41 @@ const LoginForm = ({ baseUrl, onClose }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const loginClickHandler = async () => {
-    if (!validate()) return;
+const loginClickHandler = async () => {
+  if (!validate()) return;
 
-    try {
-      const response = await axios.post(
-        `${baseUrl}auth/login`,
-        {
-          emailId,
-          password: loginPassword,
+  try {
+    const response = await axios.post(
+      `http://localhost:7000/api/auth/login`,
+      {
+        emailId,
+        password: loginPassword,
+      },
+      {
+        withCredentials: true, 
+        headers: {
+          "Content-Type": "application/json",
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-cache",
-          },
-        }
-      );
+      }
+    );
 
-      sessionStorage.setItem(
-        "access-token",
-        response.headers["access-token"] || response.data["access-token"]
-      );
 
-      onClose?.();
-      router.push("/");
-    } catch (error) {
-      console.error("Login failed:", error);
-      setErrorMessage(
-        error.response?.data?.error || "Something went wrong. Please try again."
-      );
-    }
-  };
+    dispatch(addUser(response.data));
+
+    onClose?.();
+
+    router.push("/");
+  } catch (error) {
+    console.error("Login failed:", error);
+    setErrorMessage(
+      error.response?.data?.error || "Something went wrong. Please try again."
+    );
+  }
+};
+
 
   return (
     <div className="space-y-4 mt-2">
-      {/* Email */}
       <div>
         <label className="block text-sm font-medium text-gray-700">Email</label>
         <input
@@ -69,7 +74,6 @@ const LoginForm = ({ baseUrl, onClose }) => {
         {errors.emailId && <p className="text-red-500 text-sm">{errors.emailId}</p>}
       </div>
 
-      {/* Password */}
       <div>
         <label className="block text-sm font-medium text-gray-700">Password</label>
         <input
@@ -85,12 +89,10 @@ const LoginForm = ({ baseUrl, onClose }) => {
         )}
       </div>
 
-      {/* General Error */}
       {errorMessage && (
         <div className="text-red-600 text-sm text-center">{errorMessage}</div>
       )}
 
-      {/* Submit */}
       <button
         onClick={loginClickHandler}
         className="w-full mt-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition"

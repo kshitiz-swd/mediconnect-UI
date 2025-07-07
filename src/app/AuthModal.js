@@ -42,7 +42,6 @@ const AuthModal = ({ isOpen, onRequestClose, baseUrl }) => {
                   Authentication
                 </Dialog.Title>
 
-                {/* Tabs */}
                 <div className="flex justify-center mt-4">
                   <button
                     onClick={() => setTab("login")}

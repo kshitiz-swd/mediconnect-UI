@@ -1,23 +1,22 @@
 // app/layout.js
-import Header from '../components/Header'
-import './globals.css'
-import dynamic from 'next/dynamic'
-
-// Dynamically import Header with SSR disabled
-// const Header = dynamic(() => import('../components/Header'), { ssr: false })
+import "./globals.css";
+import ClientHeader from "../components/ClientHeader";
+import Providers from "../utils/Providers"; 
 
 export const metadata = {
-  title: 'MediConnect',
-  description: 'Your app description',
-}
+  title: "MediConnect",
+  description: "Your app description",
+};
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <Header /> {/* ✅ This will appear on every page */}
-        {children}
+        <Providers>
+          <ClientHeader baseUrl="http://localhost:7000/api" />
+          {children}
+        </Providers>
       </body>
     </html>
-  )
+  );
 }

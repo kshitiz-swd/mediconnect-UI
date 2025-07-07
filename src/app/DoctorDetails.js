@@ -41,7 +41,7 @@ const DoctorDetails = ({ isOpen, onRequestClose, selectedDoctor }) => {
               </Dialog.Title>
 
               <div className="mt-4 space-y-2 text-gray-800">
-                <p className="text-xl font-bold">Dr. {selectedDoctor.name}</p>
+                <p className="text-xl font-bold">{selectedDoctor.name}</p>
                 <p>Experience: {selectedDoctor.totalExperience} years</p>
                 <p>Specialization: {selectedDoctor.specialization}</p>
                 <p>DOB: {selectedDoctor.dateOfBirth?.split('T')[0]}</p>

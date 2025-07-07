@@ -2,17 +2,16 @@
 
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-// import RateAppointment from './RateAppointment';
+import RateAppointment from '../RateAppointment';
 
 
 const Appointment = ({ baseUrl }) => {
-//   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [appointments, setAppointments] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const accessToken = sessionStorage.getItem('access-token');
 
   const openModalHandler = (appointment) => {
     setSelectedAppointment(appointment);
@@ -24,37 +23,22 @@ const Appointment = ({ baseUrl }) => {
   };
 
 useEffect(() => {
-  setIsLoggedIn(true); // Force logged in for demo
+  const fetchAppointments = async () => {
+    try {
+      const response = await axios.get(`http://localhost:7000/api/appointment`, {
+        withCredentials: true, 
+      });
+      console.log(response)
 
-  // Dummy appointments data
-  const dummyAppointments = [
-    {
-      doctorId: { name: "Dr. Arjun Mehta" },
-      appointmentDate: "2025-07-02T10:00:00.000Z",
-      symptoms: "Fever, cough",
-      medicalHistory: "Asthma",
-    },
-    {
-      doctorId: { name: "Dr. Neha Sharma" },
-      appointmentDate: "2025-06-28T14:30:00.000Z",
-      symptoms: "Headache",
-      medicalHistory: "None",
-    },
-    {
-      doctorId: { name: "Dr. Neha Sharma" },
-      appointmentDate: "2025-06-28T14:30:00.000Z",
-      symptoms: "Headache",
-      medicalHistory: "None",
-    },
-    {
-      doctorId: { name: "Dr. Ramesh Gupta" },
-      appointmentDate: "2025-07-01T09:00:00.000Z",
-      symptoms: "Back pain",
-      medicalHistory: "Slip disc in 2022",
-    },
-  ];
+      setAppointments(response.data.appointments || response.data);
+      setIsLoggedIn(true);
+    } catch (error) {
+      console.error("Error fetching appointments:", error);
+      setIsLoggedIn(false); 
+    }
+  };
 
-  setAppointments(dummyAppointments);
+  fetchAppointments();
 }, []);
 
 
@@ -87,15 +71,12 @@ useEffect(() => {
           </div>
         ))}
       </div>
-
-      {/* <RateAppointment
-        isOpen={modalIsOpen}
-        onRequestClose={closeModalHandler}
-        baseUrl={baseUrl}
-        selectedAppointment={selectedAppointment}
-        rateMsg={errorMessage}
-        setRateMsg={setErrorMessage}
-      /> */}
+        <RateAppointment
+          isOpen={modalIsOpen}
+          onRequestClose={closeModalHandler}
+          selectedAppointment={selectedAppointment}
+          baseUrl={baseUrl}
+        />
     </div>
   );
 };

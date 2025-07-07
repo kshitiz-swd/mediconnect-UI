@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import DoctorDetails from "./DoctorDetails";
-// import BookAppointment from "./BookAppointment";
+import BookAppointment from "./BookAppointment";
 
 const DoctorList = ({ baseUrl }) => {
   const [doctors, setDoctors] = useState([]);
@@ -25,53 +25,27 @@ const DoctorList = ({ baseUrl }) => {
 
   const closeModalHandler = () => setModalIsOpen(false);
 
-useEffect(() => {
-  const demoDoctors = [
-    {
-      name: "Dr. Sarah Johnson",
-      specialization: "Cardiology",
-      hospital: "Memorial Medical Center",
-      experience: 15,
-      education: "Harvard Medical School",
-      availability: "Available Today"
-    },
-    {
-      name: "Dr. Sarah Johnson",
-      specialization: "Cardiology",
-      hospital: "Memorial Medical Center",
-      experience: 15,
-      education: "Harvard Medical School",
-      availability: "Available Today"
-    },
-    {
-      name: "Dr. Michael Chen",
-      specialization: "Dermatology",
-      hospital: "City General Hospital",
-      experience: 10,
-      education: "Johns Hopkins University",
-      availability: "Next Available: Tomorrow"
-    },
-    {
-      name: "Dr. Michael Chen",
-      specialization: "Dermatology",
-      hospital: "City General Hospital",
-      experience: 12,
-      education: "Johns Hopkins University",
-      availability: "Next Available: Tomorrow"
-    },
-    {
-      name: "Dr. Michgnhael Chen",
-      specialization: "Dermatology",
-      hospital: "City General Hospital",
-      experience: 9,
-      education: "Johns Hopkins University",
-      availability: "Next Available: Tomorrow"
-    },
-  ];
 
-  setDoctors(demoDoctors);
-  setFilteredDoctors(demoDoctors);
-  setSpecialityList(["All", "Cardiology", "Dermatology"]);
+useEffect(() => {
+  const fetchDoctors = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}doctors`, {
+        withCredentials: true, 
+      });
+      console.log(response.data.doctors)
+
+      const doctors = response.data.doctors
+      setDoctors(doctors);
+      setFilteredDoctors(doctors);
+
+      const uniqueSpecialities = ["All", ...new Set(doctors.map(doc => doc.specialization))];
+      setSpecialityList(uniqueSpecialities);
+    } catch (error) {
+      console.error(" Error fetching doctors:", error);
+    }
+  };
+
+  fetchDoctors();
 }, []);
 
 
@@ -95,14 +69,12 @@ useEffect(() => {
 
   return (
     <div className=" mx-auto ">
-      {/* Hero Section with Blue Background */}
         <div className="bg-blue-600 text-white py-14 px-4 text-center">
         <h1 className="text-3xl md:text-4xl font-bold">Find the Right Doctor for Your Care</h1>
         <p className="mt-2 text-sm md:text-base">
             Search our extensive network of healthcare professionals to find specialists who meet your specific needs.
         </p>
 
-        {/* White Search Box */}
         <div className="mt-8 bg-white p-4 md:p-6 rounded-xl shadow-md max-w-3xl mx-auto flex flex-col md:flex-row gap-4 items-center">
             <input
             type="text"
@@ -125,7 +97,6 @@ useEffect(() => {
         </div>
         </div>
 
-      {/* Doctor Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 px-8 md:px-10 lg:px-[120px] pt-24">
         {filteredDoctors.map((doctor, index) => (
           <div
@@ -141,16 +112,9 @@ useEffect(() => {
               <p className="text-blue-500 text-sm mb-2">{doctor.specialization}</p>
 
               <div className="flex flex-col items-center text-sm text-gray-600 gap-1 mb-2">
-                <p>🏥 {doctor.hospital || "City Hospital"}</p>
-                <p>📅 {doctor.experience || "8"} years experience</p>
-                <p>🎓 {doctor.education || "Harvard Medical School"}</p>
-              </div>
-
-              <div className="flex flex-wrap justify-center gap-2 text-xs mt-2 mb-4">
-                <span className="bg-green-100 text-green-800 px-2 py-1 rounded">
-                  {doctor.availability || "Available Today"}
-                </span>
-                <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">Accepting New Patients</span>
+                <p>🏥 {doctor.city || "City Hospital"}</p>
+                <p>📅 {doctor.totalExperience || "8"} years experience</p>
+                <p>⭐️ Rating: {doctor.ratings || "Harvard Medical School"}</p>
               </div>
 
               <div className="flex gap-2">
@@ -173,15 +137,7 @@ useEffect(() => {
         ))}
       </div>
 
-      {/* Modal for Book/View */}
-      {modalIsOpen && 
-          <DoctorDetails
-            isOpen={modalIsOpen}
-            onRequestClose={closeModalHandler}
-            baseUrl={baseUrl}
-            selectedDoctor={selectedDoctor}
-          />}
-      {/* {modalIsOpen &&
+      {modalIsOpen &&
         (tabValue === 0 ? (
           <DoctorDetails
             isOpen={modalIsOpen}
@@ -196,7 +152,7 @@ useEffect(() => {
             baseUrl={baseUrl}
             selectedDoctor={selectedDoctor}
           />
-        ))} */}
+        ))}
     </div>
   );
 };
