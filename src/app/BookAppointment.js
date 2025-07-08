@@ -40,7 +40,6 @@ const BookAppointment = ({ isOpen, onRequestClose, selectedDoctor }) => {
   }, [selectedDate]);
 
   const fetchAvailableSlots = async () => {
-    console.log('hi')
     try {
       const formattedDate = dayjs(selectedDate).format('YYYY-MM-DD');
       const response = await axios.get(`${baseUrl}doctors/${selectedDoctor._id}/slots`, {
