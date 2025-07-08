@@ -1,54 +1,51 @@
 'use client'
 
 import React, { useState } from 'react';
+import axios from 'axios';
+import baseUrl from '../../utils/constants';
 
 const SymptomChecker = () => {
   const [prompt, setPrompt] = useState('');
-  const [symptom, setsymptom] = useState('');
+  const [suggestion, setSuggestion] = useState('');
   const [loading, setLoading] = useState(false);
+  console.log('hi')
 
-const generatesymptom = async () => {
-  if (!prompt) return;
+  const generatesymptom = async () => {
+    if (!prompt.trim()) return;
 
-  setLoading(true);
-  setsymptom('');
+    setLoading(true);
+    setSuggestion('');
 
-  try {
-    const res = await fetch('/api/symptom-checker', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ symptom }),
-    });
+    try {
+      const res = await axios.post('http://localhost:7000/api/suggest-specialist', {
+        symptoms: prompt, 
+      });
+      console.log(res)
 
-    const data = await res.json();
-    setsymptom(data.symptom || "No symptom content returned.");
-  } catch (error) {
-    console.error("Error calling API:", error);
-    setsymptom("Something went wrong while generating the symptom.");
-  }
+      setSuggestion(res.data.reply || 'No suggestion returned.');
+    } catch (error) {
+      console.error("Error calling API:", error);
+      setSuggestion("Something went wrong while generating the symptom.");
+    }
 
-  setLoading(false);
-};
-
+    setLoading(false);
+  };
 
   return (
     <div className="min-h-screen bg-gray-100">
-
       <header className="bg-blue-600 text-white py-4 px-6 flex justify-between items-center">
         <h1 className="text-2xl font-bold">Symptom Checker</h1>
       </header>
 
-
       <main className="flex justify-center items-center py-16 px-4">
         <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-2xl">
-          {/* <h2 className="text-2xl font-bold mb-2 text-gray-800"></h2> */}
           <p className="text-gray-600 mb-4">
             Enter the symptoms below to get the suggestions.
           </p>
 
           <textarea
             className="w-full p-3 border rounded-md mb-4 text-gray-700"
-            placeholder="E.g."
+            placeholder="E.g. chest pain, shortness of breath"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             rows={4}
@@ -56,16 +53,16 @@ const generatesymptom = async () => {
 
           <button
             className="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700"
-            onClick={()=> generatesymptom()}
+            onClick={generatesymptom}
             disabled={loading}
           >
-            {loading ? 'Generating...' : 'Generate symptom Post'}
+            {loading ? 'Generating...' : 'Generate Suggestions'}
           </button>
 
-          {symptom && (
-            <div className="mt-8">
-              {/* <h3 className="text-xl font-semibold mb-2 text-gray-700">Generated symptom:</h3> */}
-              {/* <div className="prose max-w-none whitespace-pre-wrap text-gray-800">{symptom}</div> */}
+          {suggestion && (
+            <div className="mt-8 text-gray-800 whitespace-pre-wrap">
+              <strong>Suggested Specializations:</strong>
+              <p>{suggestion}</p>
             </div>
           )}
         </div>

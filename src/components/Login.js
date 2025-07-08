@@ -5,9 +5,10 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice"; 
+import baseUrl from "@/utils/constants";
 
 
-const LoginForm = ({ baseUrl, onClose, onLoginSuccess }) => {
+const LoginForm = ({  onClose }) => {
   const router = useRouter();
 
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ const loginClickHandler = async () => {
 
   try {
     const response = await axios.post(
-      `http://localhost:7000/api/auth/login`,
+      `${baseUrl}auth/login`,
       {
         emailId,
         password: loginPassword,

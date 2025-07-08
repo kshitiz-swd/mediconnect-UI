@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice"; // adjust path
 import ClientHeader from "./ClientHeader";
+import baseUrl from "../utils/constants"
 
 const ClientLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const ClientLayout = ({ children }) => {
       if (userData) return;
 
       try {
-        const res = await fetch("http://localhost:7000/api/auth/profile", {
+        const res = await fetch( baseUrl+"auth/profile", {
           credentials: "include",
         });
 
@@ -33,7 +34,7 @@ const ClientLayout = ({ children }) => {
 
   return (
     <>
-      <ClientHeader baseUrl="http://localhost:7000/api" />
+      <ClientHeader baseUrl={baseUrl} />
       {children}
     </>
   );

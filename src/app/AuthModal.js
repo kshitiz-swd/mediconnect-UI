@@ -5,7 +5,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import LoginForm from "../components/Login"; 
 import RegisterForm from "../components/Register"; 
 
-const AuthModal = ({ isOpen, onRequestClose, baseUrl }) => {
+const AuthModal = ({ isOpen, onRequestClose }) => {
   const [tab, setTab] = useState("login");
 
   return (
@@ -67,9 +67,9 @@ const AuthModal = ({ isOpen, onRequestClose, baseUrl }) => {
 
                 <div className="mt-4">
                   {tab === "login" ? (
-                    <LoginForm baseUrl={baseUrl} onClose={onRequestClose} />
+                    <LoginForm  onClose={onRequestClose} />
                   ) : (
-                    <RegisterForm baseUrl={baseUrl} onClose={onRequestClose} />
+                    <RegisterForm  onClose={onRequestClose} />
                   )}
                 </div>
               </Dialog.Panel>

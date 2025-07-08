@@ -2,10 +2,12 @@
 
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import RateAppointment from '../RateAppointment';
+import RateAppointment from '../RateAppointment';4
+  import baseUrl from '../../utils/constants';
 
 
-const Appointment = ({ baseUrl }) => {
+
+const Appointment = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -25,7 +27,7 @@ console.log(appointments)
 useEffect(() => {
   const fetchAppointments = async () => {
     try {
-      const response = await axios.get(`http://localhost:7000/api/appointment`, {
+      const response = await axios.get(`${baseUrl}appointment`, {
         withCredentials: true, 
       });
       console.log(response)
@@ -41,7 +43,7 @@ useEffect(() => {
   fetchAppointments();
 }, []);
 
-
+  if(appointments.length ==0) return <p className='text-2xl text-black text-center pt-8'>No Appointments booked</p>
   return (
     <div className="px-8 md:px-10 lg:px-[120px] py-6">
       {!isLoggedIn && (

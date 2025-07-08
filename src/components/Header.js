@@ -58,7 +58,7 @@ const Header = ({ baseUrl }) => {
             onClick={openModalHandler}
             className="px-5 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 transition"
           >
-            Login
+            Login / Signup
           </button>
         ) : (
           <div className="relative">

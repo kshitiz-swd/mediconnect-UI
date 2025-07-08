@@ -5,8 +5,9 @@ import axios from "axios";
 import DoctorDetails from "./DoctorDetails";
 import BookAppointment from "./BookAppointment";
 import { useDispatch, useSelector } from "react-redux";
+import baseUrl from "@/utils/constants";
 
-const DoctorList = ({ baseUrl }) => {
+const DoctorList = () => {
   const [doctors, setDoctors] = useState([]);
   const [filteredDoctors, setFilteredDoctors] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
