@@ -1,3 +1,3 @@
-let baseUrl = 'http://localhost:7000/api/'
+let baseUrl = 'https://mediconnect-web-xqlf.onrender.com/api/'
 
 export default baseUrl
