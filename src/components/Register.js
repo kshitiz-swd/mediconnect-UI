@@ -70,17 +70,6 @@ const RegisterForm = ({ onClose }) => {
         headers: { "Content-Type": "application/json" },
       });
 
-      // const loginResponse = await axios.post(
-      //   `${baseUrl}auth/login`,
-      //   {
-      //     loginData: {
-      //       emailId: email,
-      //       password: registerPassword,
-      //     },
-      //   },
-      //   { withCredentials: true }
-      // );
-
       dispatch(addUser(response.data));
 
       onClose?.();

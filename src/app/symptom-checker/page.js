@@ -17,7 +17,7 @@ const SymptomChecker = () => {
     setSuggestion('');
 
     try {
-      const res = await axios.post('http://localhost:7000/api/suggest-specialist', {
+      const res = await axios.post(baseUrl+'suggest-specialist', {
         symptoms: prompt, 
       });
       console.log(res)

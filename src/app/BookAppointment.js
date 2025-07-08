@@ -9,8 +9,10 @@ import {
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
+import baseUrl from '@/utils/constants';
 
-const BookAppointment = ({ isOpen, onRequestClose, selectedDoctor, baseUrl }) => {
+
+const BookAppointment = ({ isOpen, onRequestClose, selectedDoctor }) => {
   const [medicalHistory, setMedicalHistory] = useState('');
   const [symptoms, setSymptoms] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
@@ -41,7 +43,7 @@ const BookAppointment = ({ isOpen, onRequestClose, selectedDoctor, baseUrl }) =>
     console.log('hi')
     try {
       const formattedDate = dayjs(selectedDate).format('YYYY-MM-DD');
-      const response = await axios.get(`http://localhost:7000/api/doctors/${selectedDoctor._id}/slots`, {
+      const response = await axios.get(`${baseUrl}doctors/${selectedDoctor._id}/slots`, {
         params: { date: formattedDate },
       });
       console.log(response)
@@ -67,7 +69,7 @@ const BookAppointment = ({ isOpen, onRequestClose, selectedDoctor, baseUrl }) =>
     try {
       const fullDateTime = combineDateAndTime(selectedDate, timeSlot);
       const response = await axios.post(
-        `http://localhost:7000/api/appointment`,
+        `${baseUrl}appointment`,
         {
           doctorId: selectedDoctor._id,
           medicalHistory,

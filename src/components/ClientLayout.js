@@ -1,9 +1,8 @@
-// components/ClientLayout.jsx
 "use client";
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../utils/userSlice"; // adjust path
+import { addUser } from "../utils/userSlice"; 
 import ClientHeader from "./ClientHeader";
 import baseUrl from "../utils/constants"
 

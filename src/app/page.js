@@ -1,7 +1,6 @@
 
 import DoctorList from "./DoctorList";
 
-
 export default function Home() {
 
   return (

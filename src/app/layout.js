@@ -1,7 +1,6 @@
-// app/layout.js
 import "./globals.css";
 import Providers from "../utils/Providers";
-import ClientLayout from "../components/ClientLayout"; // ✅ Import the new wrapper
+import ClientLayout from "../components/ClientLayout"; 
 
 export const metadata = {
   title: "MediConnect",

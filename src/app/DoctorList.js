@@ -5,7 +5,8 @@ import axios from "axios";
 import DoctorDetails from "./DoctorDetails";
 import BookAppointment from "./BookAppointment";
 import { useDispatch, useSelector } from "react-redux";
-import baseUrl from "@/utils/constants";
+import baseUrl from "../utils/constants";
+import { addUser } from "@/utils/userSlice";
 
 const DoctorList = () => {
   const [doctors, setDoctors] = useState([]);
@@ -19,26 +20,24 @@ const DoctorList = () => {
   const [sortBy, setSortBy] = useState("Recommended");
 
     const dispatch = useDispatch()
-    const userData = useSelector((store)=>store.user)
+  const userData = useSelector((state) => state.user);
 
 
 const openModalHandler = async (doctor, tab) => {
   if (tab === 1) {
     try {
-      console.log(userData)
       if (!userData || !userData._id) {
-        const response = await fetch(`${baseUrl}auth/profile`, { credentials: "include" });
+        const response = await axios.get(`${baseUrl}auth/profile`, {
+          withCredentials: true,
+        });
 
-        if (!response.ok) {
-          throw new Error("Not authenticated");
-        }
-
-        const data = await response.json();
-        dispatch(addUser(data));
+        dispatch(addUser(response.data));
       }
     } catch (err) {
-      alert("🔒 Please login to book an appointment.");
-      return; 
+      console.log(userData.user);
+
+      alert("Please login to book an appointment.");
+      return;
     }
   }
 
