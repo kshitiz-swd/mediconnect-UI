@@ -60,7 +60,7 @@ const Header = ({ baseUrl }) => {
             <MenuButton className="items-center gap-2 rounded-full p-2 hover:bg-gray-200">
               <Image src={user} alt="User" width={40} height={40} className="rounded-full" />
             </MenuButton>
-            <MenuItems className="absolute right-4 mt-2 z-50 w-52 origin-top-right rounded-xl border bg-white text-black shadow-lg ring-1 ring-black/5 focus:outline-none">
+            <MenuItems className="absolute right-4 mt-36 mr-28 z-50 w-52 origin-top-right rounded-xl border bg-white text-black shadow-lg ring-1 ring-black/5 focus:outline-none">
               <MenuItem>
                 <button
                   className="w-full px-4 py-2 text-left hover:bg-gray-100 hover:rounded-xl"

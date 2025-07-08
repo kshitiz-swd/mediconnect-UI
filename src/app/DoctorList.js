@@ -6,7 +6,7 @@ import DoctorDetails from "./DoctorDetails";
 import BookAppointment from "./BookAppointment";
 import { useDispatch, useSelector } from "react-redux";
 import baseUrl from "../utils/constants";
-import { addUser } from "@/utils/userSlice";
+import { addUser } from "../utils/userSlice";
 
 const DoctorList = () => {
   const [doctors, setDoctors] = useState([]);
@@ -34,8 +34,6 @@ const openModalHandler = async (doctor, tab) => {
         dispatch(addUser(response.data));
       }
     } catch (err) {
-      console.log(userData.user);
-
       alert("Please login to book an appointment.");
       return;
     }
@@ -55,7 +53,6 @@ useEffect(() => {
       const response = await axios.get(`${baseUrl}doctors`, {
         withCredentials: true, 
       });
-      console.log(response.data.doctors)
 
       const doctors = response.data.doctors
       setDoctors(doctors);

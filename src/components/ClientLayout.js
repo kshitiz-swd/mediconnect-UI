@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice"; 
 import ClientHeader from "./ClientHeader";
 import baseUrl from "../utils/constants"
+import axios from "axios";
 
 const ClientLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -15,8 +16,8 @@ const ClientLayout = ({ children }) => {
       if (userData) return;
 
       try {
-        const res = await fetch( baseUrl+"auth/profile", {
-          credentials: "include",
+        const res = await axios.get(`${baseUrl}auth/profile`, {
+          withCredentials: true,
         });
 
         if (res.status === 200) {

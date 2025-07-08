@@ -5,7 +5,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice"; 
-import baseUrl from "@/utils/constants";
+import baseUrl from "../utils/constants";
 
 
 const LoginForm = ({  onClose }) => {
@@ -46,7 +46,7 @@ const loginClickHandler = async () => {
     );
 
 
-    dispatch(addUser(response.data));
+    dispatch(addUser(response.data.user));
 
     onClose?.();
 
