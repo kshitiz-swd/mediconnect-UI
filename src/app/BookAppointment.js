@@ -9,7 +9,7 @@ import {
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
-import baseUrl from '@/utils/constants';
+import baseUrl from '../utils/constants';
 
 
 const BookAppointment = ({ isOpen, onRequestClose, selectedDoctor }) => {
@@ -45,7 +45,6 @@ const BookAppointment = ({ isOpen, onRequestClose, selectedDoctor }) => {
       const response = await axios.get(`${baseUrl}doctors/${selectedDoctor._id}/slots`, {
         params: { date: formattedDate },
       });
-      console.log(response)
       setAvailableSlots(response.data.slots || []);
     } catch (error) {
       console.error('Error fetching slots:', error);

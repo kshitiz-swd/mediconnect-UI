@@ -8,7 +8,6 @@ const SymptomChecker = () => {
   const [prompt, setPrompt] = useState('');
   const [suggestion, setSuggestion] = useState('');
   const [loading, setLoading] = useState(false);
-  console.log('hi')
 
   const generatesymptom = async () => {
     if (!prompt.trim()) return;
